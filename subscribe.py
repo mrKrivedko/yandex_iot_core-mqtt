@@ -100,9 +100,10 @@ def main():
     dev.wait_subscribed_data()
     reg.wait_subscribed_data()
 
-    # dev.disconnect()
-    # reg.disconnect()
+    dev.disconnect()
+    reg.disconnect()
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()

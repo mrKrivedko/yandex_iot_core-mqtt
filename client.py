@@ -3,21 +3,7 @@ import sys
 import threading
 from enum import IntEnum
 
-MQTT_SERVER = 'mqtt.cloud.yandex.net'
-MQTT_PORT = 8883
-ROOTCA_PATH = 'rootCA.crt'
-
-DEVICE_ID = "areu64lk2ls1dadeea1f"
-DEVICE_PASSWORD = "8HB+tG;0{CZ4$fLY"
-REGISTRY_ID = "aredobdlvvrfb4c4b098"
-REGISTRY_PASSWORD = "8HB+tG;0{CZ4$fLY"
-
-REGISTRY_COMMANDS = "$registries/" + REGISTRY_ID + "/commands"
-REGISTRY_EVENTS = "$registries/" + REGISTRY_ID + "/events"
-
-# False means use certificates
-USE_DEVICE_LOGIN_PASSWORD = False
-USE_REGISTRY_LOGIN_PASSWORD = False
+import settings
 
 
 class Qos(IntEnum):
@@ -35,14 +21,14 @@ class YaClient:
         self.client.on_message = self.on_message
 
     def start_with_cert(self, cert_file, key_file):
-        self.client.tls_set(ROOTCA_PATH, cert_file, key_file)
-        self.client.connect(MQTT_SERVER, MQTT_PORT, 60)
+        self.client.tls_set(settings.ROOTCA_PATH, cert_file, key_file)
+        self.client.connect(settings.MQTT_SERVER, settings.MQTT_PORT, 60)
         self.client.loop_start()
 
     def start_with_login(self, login, password):
-        self.client.tls_set(ROOTCA_PATH)
+        self.client.tls_set(settings.ROOTCA_PATH)
         self.client.username_pw_set(login, password)
-        self.client.connect(MQTT_SERVER, MQTT_PORT, 60)
+        self.client.connect(settings.MQTT_SERVER, settings.MQTT_PORT, 60)
         self.client.loop_start()
 
     def disconnect(self):
@@ -71,31 +57,31 @@ def main():
     dev = YaClient('Test_Device_Client')
     reg = YaClient('Test_Registry_Client')
 
-    if USE_DEVICE_LOGIN_PASSWORD:
-        dev.start_with_login(DEVICE_ID, DEVICE_PASSWORD)
+    if settings.USE_DEVICE_LOGIN_PASSWORD:
+        dev.start_with_login(settings.DEVICE_ID, settings.DEVICE_PASSWORD)
     else:
         dev.start_with_cert('mptk_register/device1/cert_dev.pem', 'mptk_register/device1/key_dev.pem')
 
-    if USE_REGISTRY_LOGIN_PASSWORD:
-        reg.start_with_login(REGISTRY_ID, REGISTRY_PASSWORD)
+    if settings.USE_REGISTRY_LOGIN_PASSWORD:
+        reg.start_with_login(settings.REGISTRY_ID, settings.REGISTRY_PASSWORD)
     else:
         reg.start_with_cert('mptk_register/cert_reg.pem', 'mptk_register/key_reg.pem')
 
-    # res, _ = dev.subscribe(REGISTRY_COMMANDS)
+    # res, _ = dev.subscribe(settings.REGISTRY_COMMANDS)
     # if res != mqtt.MQTT_ERR_SUCCESS:
-    #     sys.exit("Can't subscribe on [ " + REGISTRY_COMMANDS + " ]")
+    #     sys.exit("Can't subscribe on [ " + settings.REGISTRY_COMMANDS + " ]")
 
-    # res, _ = reg.subscribe(REGISTRY_EVENTS)
+    # res, _ = reg.subscribe(settings.REGISTRY_EVENTS)
     # if res != mqtt.MQTT_ERR_SUCCESS:
-    #     sys.exit("Can't subscribe on [ " + REGISTRY_EVENTS + " ]")
+    #     sys.exit("Can't subscribe on [ " + settings.REGISTRY_EVENTS + " ]")
 
-    res = reg.publish(REGISTRY_COMMANDS, "reg commands")
-    if res != mqtt.MQTT_ERR_SUCCESS:
-        sys.exit("Can't publish [ " + REGISTRY_COMMANDS + " ]")
+    # res = reg.publish(settings.REGISTRY_COMMANDS, "reg commands")
+    # if res != mqtt.MQTT_ERR_SUCCESS:
+    #     sys.exit("Can't publish [ " + settings.REGISTRY_COMMANDS + " ]")
 
-    res = dev.publish(REGISTRY_EVENTS, "reg events")
+    res = dev.publish(settings.REGISTRY_EVENTS, "reg events!!!")
     if res != mqtt.MQTT_ERR_SUCCESS:
-        sys.exit("Can't publish [ " + REGISTRY_EVENTS + " ]")
+        sys.exit("Can't publish [ " + settings.REGISTRY_EVENTS + " ]")
 
     # dev.wait_subscribed_data()
     # reg.wait_subscribed_data()
