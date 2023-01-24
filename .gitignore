@@ -133,3 +133,4 @@ paho__1111.py
 commands.txt
 rootCA.crt
 settings.py
+mqtt.py
