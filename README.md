@@ -3,9 +3,9 @@
 ## Пример работы с mqtt сервером с использованием библиотеки paho.
 [Установка библиотеки paho](https://github.com/eclipse/paho.mqtt.python)
 
-    `python -m venv venv`
-    `source venv/Script/activate`
-    `pip install paho-mqtt`
+    python -m venv venv
+    source venv/Script/activate
+    pip install paho-mqtt
 
 [Сертификат удостоверяющего
 центра](https://storage.yandexcloud.net/mqtt/rootCA.crt) включен в пример
@@ -89,11 +89,11 @@ https://cloud.yandex.ru/docs/iot-core/
 - Запустите стандартную программу _Windows PowerShell_
 - Перейдите в папку <c:\SertFolder\>
 Запустим openssl с параметрами, чтобы сгенерировать сертификаты для реестра. 
-`openssl req -x509 -newkey rsa:4096 -keyout key_reg.pem -out cert_reg.pem -nodes -days 365 -subj '/CN=localhost'`
+    openssl req -x509 -newkey rsa:4096 -keyout key_reg.pem -out cert_reg.pem -nodes -days 365 -subj '/CN=localhost'
 Создались два файла: ключ - *key_reg.pem* и сертификат - cert_reg.pem.  
 Эти файлы мы будем использовать для реестра.
 Теперь запустите openssl  с другими названиями файлов в параметрах, чтобы сгенерировать сертификаты для устройства. 
-`openssl req -x509 -newkey rsa:4096 -keyout key_dev.pem -out cert_dev.pem -nodes -days 365 -subj '/CN=localhost'`
+    openssl req -x509 -newkey rsa:4096 -keyout key_dev.pem -out cert_dev.pem -nodes -days 365 -subj '/CN=localhost'
 
 # Активация пробного периода в  Яндекс.Облаке #
 1. Зайдите на страницу https://console.cloud.yandex.ru/ 
@@ -116,9 +116,9 @@ https://cloud.yandex.ru/docs/iot-core/
 Ошибки                               -   LW-103
 Перейдите на вкладку [IIoT/энергетика] - [MQTT]. Установите галочку [Включить] и нажмите [Настройки]
 Укажите домен брокера Yandex и порт. Для этого около поля IP поставим галочку “Использовать имя домена” и пропишем адрес.
-`Домен: mqtt.cloud.yandex.net`
-`Порт: 8883`
-`Укажите протокол: MQTT v3.1.1`
+    Домен: mqtt.cloud.yandex.net
+    Порт: 8883
+    Укажите протокол: MQTT v3.1.1
 Во вкладке [Адрес] пропишите адрес нашего объекта "состояние подключения", в нашем случае LW-102.
 Во вкладке [TLS/SSL] нажмите на галочку включить, и после поставьте галочки [проверка сервера] и [проверка клиента].
 Теперь нужно загрузить "сертификат удостоверяющего центра Яндекса", "сертификат устройства" и "ключ устройства".
