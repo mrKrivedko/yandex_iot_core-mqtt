@@ -3,9 +3,9 @@
 ## Пример работы с mqtt сервером с использованием библиотеки paho.
 [Установка библиотеки paho](https://github.com/eclipse/paho.mqtt.python)
 
-`python -m venv venv`
-`source venv/Script/activate`
-`pip install paho-mqtt`
+    `python -m venv venv`
+    `source venv/Script/activate`
+    `pip install paho-mqtt`
 
 [Сертификат удостоверяющего
 центра](https://storage.yandexcloud.net/mqtt/rootCA.crt) включен в пример
