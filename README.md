@@ -90,6 +90,7 @@ https://cloud.yandex.ru/docs/iot-core/
 - Перейдите в папку <c:\SertFolder\>
 Запустим openssl с параметрами, чтобы сгенерировать сертификаты для реестра. 
 
+
     openssl req -x509 -newkey rsa:4096 -keyout key_reg.pem -out cert_reg.pem -nodes -days 365 -subj '/CN=localhost'
 
 
