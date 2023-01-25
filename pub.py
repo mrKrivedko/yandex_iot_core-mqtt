@@ -41,7 +41,7 @@ def main():
     # reg.wait_subscribed_data()
 
     dev.disconnect()
-    reg.disconnect()
+    # reg.disconnect()
 
 
 if __name__ == "__main__":

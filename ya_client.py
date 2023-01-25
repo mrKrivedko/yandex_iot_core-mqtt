@@ -23,11 +23,13 @@ class YaClient:
         self.client.on_message = self.on_message
 
     def start_with_cert(self, cert_file, key_file):
+        """Авторизация по сертификату."""
         self.client.tls_set(settings.ROOTCA_PATH, cert_file, key_file)
         self.client.connect(settings.MQTT_SERVER, settings.MQTT_PORT, 60)
         self.client.loop_start()
 
     def start_with_login(self, login: str, password: str):
+        """Авторизация по логину/паролю."""
         self.client.tls_set(settings.ROOTCA_PATH)
         self.client.username_pw_set(login, password)
         self.client.connect(settings.MQTT_SERVER, settings.MQTT_PORT, 60)
