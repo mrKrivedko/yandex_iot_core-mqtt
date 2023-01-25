@@ -34,6 +34,7 @@ class YaClient:
     def disconnect(self):
         self.client.loop_stop()
 
+
     @staticmethod
     def on_message(client, userdata, message):
         print("Received message '" + str(message.payload) + "' on topic '"
