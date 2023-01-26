@@ -21,6 +21,7 @@ class YaClient:
         self.client = mqtt.Client(client_id)
         self.client.user_data_set(self.received)
         self.client.on_message = self.on_message
+        self.client.on_connect = self.on_connect
 
     def start_with_cert(self, cert_file, key_file):
         """Авторизация по сертификату."""
@@ -39,12 +40,30 @@ class YaClient:
         self.client.loop_stop()
 
     @staticmethod
+    def on_connect(
+        client: mqtt.Client,
+        userdata: threading.Event,
+        flags: dict[int],
+        rc: int
+    ):
+        """
+        Вызывается когда произошло соединение.
+        """
+        print(
+            client._client_id.decode('utf-8')
+            + 'connected with result code '
+            + str(rc)
+        )
+
+    @staticmethod
     def on_message(
         client: mqtt.Client,
         userdata: threading.Event,
         message: mqtt.MQTTMessage
     ):
         """
+        Вызывается, когда получено сообщение по теме,
+        на которую подписан клиент.
         Печатает в консоль информацию о сообщении.
         Устанавливает Event.set().
         """
@@ -53,7 +72,10 @@ class YaClient:
         userdata.set()
 
     def publish(self, topic: str, payload: str) -> int:
-        """Публикуем."""
+        """
+        Публикуем.
+        rc - (result code) результат публикации.
+        """
         rc: mqtt.MQTTMessageInfo = self.client.publish(topic, payload, self.qos)
         rc.wait_for_publish()
         return rc.rc

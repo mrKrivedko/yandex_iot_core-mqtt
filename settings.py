@@ -7,7 +7,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MQTT_SERVER = 'mqtt.cloud.yandex.net'
 MQTT_PORT = 8883
-# ROOTCA_PATH = 'rootCA.crt'
 ROOTCA_PATH = os.path.abspath('rootCA.crt')
 
 # Certificates directory:
@@ -39,7 +38,17 @@ REGISTRY_KEY = os.path.join(CERT_REG, 'key_reg.pem')
 
 REGISTRY_COMMANDS = "$registries/" + REGISTRY_ID + "/commands"
 REGISTRY_EVENTS = "$registries/" + REGISTRY_ID + "/events"
+REGISTRY_STATE = '$registries/' + REGISTRY_ID + '/state'
+REGISTRY_CONFIG = '$registries/' + REGISTRY_ID + '/config'
+
+DEVICE_CONFIG = '$devices/' + DEVICE_ID + '/config'
+DEVICE_STATE = '$devices/' + DEVICE_ID + '/state'
+DEVICE_EVENTS = '$devices/' + DEVICE_ID + '/events'
+DEVICE_COMMANDS = '$devices/' + DEVICE_ID + '/commands'
+
+MONITORING = '$monitoring/' + DEVICE_ID + '/json'
 
 # False means use certificates
+
 USE_DEVICE_LOGIN_PASSWORD = False
 USE_REGISTRY_LOGIN_PASSWORD = False
